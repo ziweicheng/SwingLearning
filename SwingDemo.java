@@ -9,28 +9,29 @@ import javax.swing.JLabel;
 
 public class SwingDemo
 {
-	private static void createGUI()
-	{
-		// JFrame指一个窗口，构造方法的参数为窗口标题
-		MyFrame frame = new MyFrame("Swing Demo");
+		private static void createGUI()
+		{
+			JFrame frame = new JFrame("Swing Demo");
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			
+			Container contentPane = frame.getContentPane();
+			contentPane.setLayout(new FlowLayout());
+			
+			contentPane.add(new JLabel("Hello,World"));
+			contentPane.add(new JButton("Swing"));
+			
+			frame.setSize(1980, 1024);
+			frame.setVisible(true);
+		}
 		
-		// 当关闭窗口时，退出整个程序 (不懂的话没事，照抄即可，这一行不是重点)
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		public static void main(String[] args)
+		{
+			javax.swing.SwingUtilities.invokeLater(new Runnable() {
+				public void run()
+				{
+					createGUI();
+				}
+			});
 
-
-	}
-	
-	public static void main(String[] args)
-	{
-		// 此段代码间接地调用了 createGUI()，具体原理在 Swing高级篇 里讲解
-		// 初学者先照抄此代码框架即可
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run()
-			{
-				createGUI();
-			}
-		});
-
-	}
+		}
 }
-
