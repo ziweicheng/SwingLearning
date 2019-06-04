@@ -1,14 +1,24 @@
 package my;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.LayoutManager;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Frame extends JFrame
 {
@@ -17,42 +27,62 @@ public class Frame extends JFrame
 	{
 		super(name);
 		
+		//第一层Layout
 		Container contentPane = getContentPane();
-		contentPane.setLayout(new BorderLayout());
+		Box box1 = Box.createVerticalBox();
 		
-		JLabel a = new color("1",Color.red);
-		JLabel b = new color("2",Color.black);
-		color c = new color("3",Color.gray);
-		color d = new color("4",Color.green);
-		color e = new color("5",Color.pink);
+		//添加配置下拉列表
+		JComboBox<String> com= new JComboBox<>();
+		com.addItem("Choose one color");
+		com.addItem("Input your password");
+		com.setMaximumSize(new Dimension(9999,30));
 		
-		//上下Border宽度固定100% 中间部分高度固定100%
-		b.setPreferredSize(new Dimension(150,60));
-		c.setPreferredSize(new Dimension(80,30));
-		d.setPreferredSize(new Dimension(120,80));
+		// add Button 可以不要
+//		JButton a1 = new JButton("Red");
+//		JButton a2 = new JButton("Green");
+//		JButton a3 = new JButton("Blue");
 		
-		contentPane.add(a,BorderLayout.PAGE_START);
-		contentPane.add(b,BorderLayout.LINE_START);
-		contentPane.add(c,BorderLayout.CENTER );
-		contentPane.add(d,BorderLayout.LINE_END);
-		contentPane.add(e,BorderLayout.PAGE_END);
+		//第三层Layout
+		Box box2 = Box.createHorizontalBox();
+			
+		//第二层Layout CardLayout
+		JPanel cards = new JPanel(new CardLayout());
+		JPanel card1 = new JPanel();
+		JPanel card2 = new JPanel();
+		CardLayout cl = (CardLayout) cards.getLayout();
+		card1.add(box2);
+		card2.add(new JTextField ("Please input your password",16 ));
+		cards.add(card1, "button");
+		cards.add(card2,"text");
+				
+		// box2 add button
+		box2.add(new JButton("Red"));
+		box2.add(new JButton("Green"));
+		box2.add(new JButton("Blue"));
 		
+		//Add component to panel
+		contentPane.add(box1);
+		box1.add(com);
+		box1.add(Box.createVerticalStrut(40));
+		box1.add(cards);
 		
+		//添加监听器
+		com.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e)
+			{
+				if (com.getSelectedIndex() == 0)
+					cl.show(cards, "button");
+				else if (com.getSelectedIndex() == 1)
+					cl.show(cards, "text");
+			
+			}
+		});
+			
 		setVisible(true);
 		setSize(400,400);
 		
-	}
-	
-	private static class color extends JLabel
-	{
-		public color(String title, Color b)
-		{
-			super(title);
-			setOpaque(true);
-			setBackground(b);
-			setPreferredSize(new Dimension(40, 40));
-			setHorizontalAlignment(0);
-		}
 	}
 	
 }
