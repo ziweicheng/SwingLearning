@@ -14,9 +14,11 @@ public class SwingDemo
 		// JFrame指一个窗口，构造方法的参数为窗口标题
 
 		Frame frame = new Frame("Swing Demo");
+		MyFrame MyFrame = new MyFrame ("tset");
 
 		// 当关闭窗口时，退出整个程序 (不懂的话没事，照抄即可，这一行不是重点)
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		MyFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
 

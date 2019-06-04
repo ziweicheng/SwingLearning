@@ -13,10 +13,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class Frame extends JFrame
+public class MyFrame extends JFrame
 {
 
-	public Frame(String name)
+	public MyFrame(String name)
 	{
 		super(name);
 		
@@ -25,7 +25,7 @@ public class Frame extends JFrame
 //		contentPane.setLayout(M);
 		
 		// Box 是一个JComponent， 内部使用了BoxLayout
-		Box box = Box.createVerticalBox();
+		Box box = Box.createHorizontalBox();
 		
 		
 		JLabel a = new color("1",Color.red);
@@ -35,6 +35,7 @@ public class Frame extends JFrame
 		color e = new color("5",Color.pink);
 		
 		//设置LabelSize
+		a.setPreferredSize(new Dimension(80,0));
 		a.setMaximumSize(new Dimension(60,60));
 		b.setMaximumSize(new Dimension(120,60));
 		c.setMaximumSize(new Dimension(120,120));
