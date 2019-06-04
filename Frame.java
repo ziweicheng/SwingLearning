@@ -6,7 +6,10 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.LayoutManager;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -18,7 +21,8 @@ public class Frame extends JFrame
 		super(name);
 		
 		Container contentPane = getContentPane();
-		contentPane.setLayout(new BorderLayout());
+		LayoutManager M = new BoxLayout(contentPane, BoxLayout.X_AXIS);
+		contentPane.setLayout(M);
 		
 		JLabel a = new color("1",Color.red);
 		JLabel b = new color("2",Color.black);
@@ -26,16 +30,23 @@ public class Frame extends JFrame
 		color d = new color("4",Color.green);
 		color e = new color("5",Color.pink);
 		
-		//上下Border宽度固定100% 中间部分高度固定100%
-		b.setPreferredSize(new Dimension(150,60));
-		c.setPreferredSize(new Dimension(80,30));
-		d.setPreferredSize(new Dimension(120,80));
+		//设置LabelSize
+		a.setMaximumSize(new Dimension(60,60));
+		b.setMaximumSize(new Dimension(120,60));
+		c.setMaximumSize(new Dimension(120,120));
+		d.setMaximumSize(new Dimension(60,60));
+		e.setMaximumSize(new Dimension(80,60));
 		
-		contentPane.add(a,BorderLayout.PAGE_START);
-		contentPane.add(b,BorderLayout.LINE_START);
-		contentPane.add(c,BorderLayout.CENTER );
-		contentPane.add(d,BorderLayout.LINE_END);
-		contentPane.add(e,BorderLayout.PAGE_END);
+		
+		contentPane.add(a);
+		contentPane.add(Box.createHorizontalStrut(10));
+		contentPane.add(b);
+		contentPane.add(Box.createHorizontalStrut(10));
+		contentPane.add(c);
+		contentPane.add(Box.createHorizontalStrut(10));
+		contentPane.add(d);
+		contentPane.add(Box.createHorizontalStrut(10));
+		contentPane.add(e);
 		
 		
 		setVisible(true);
